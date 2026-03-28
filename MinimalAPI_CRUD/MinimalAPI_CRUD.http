@@ -1,6 +1,6 @@
 @MinimalAPI_CRUD_HostAddress = http://localhost:5135
 
-GET {{MinimalAPI_CRUD_HostAddress}}/weatherforecast/
+GET {{MinimalAPI_CRUD_HostAddress}}/persons/
 Accept: application/json
 
 ###
