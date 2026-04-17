@@ -56,3 +56,35 @@ BEGIN
     FROM Persons
     WHERE IDPerson = @IDPerson;
 END
+
+
+CREATE PROCEDURE SP_UpdatePerson
+    @IDPerson INT,
+    @Name NVARCHAR(100) = NULL,
+    @Last_name NVARCHAR(100) = NULL,
+    @CURP NVARCHAR(50) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE Persons
+    SET 
+        Name = COALESCE(@Name, Name),
+        Last_name = COALESCE(@Last_name, Last_name),
+        CURP = COALESCE(@CURP, CURP)
+    WHERE IDPerson = @IDPerson;
+END
+
+
+CREATE PROCEDURE SP_ExistsById
+    @IDPerson INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM Persons WHERE IDPerson = @IDPerson)
+        SELECT 1
+    ELSE
+        SELECT 0
+END
+

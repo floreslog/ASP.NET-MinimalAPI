@@ -30,14 +30,27 @@ app.MapGet("/persons/{id:int}", async Task<Results<NotFound, Ok<Person>>> (int i
     return TypedResults.Ok(person);
 });
 
-
-
 app.MapPost("/persons", async (Person person, IPersonRepository personRepository) =>
 {
     await personRepository.Create(person);
     return TypedResults.Created($"/persons/{person.IDPerson}", person);
 });
 
+app.MapPut("/persons/{id:int}", async Task<Results<BadRequest<string>, NoContent, NotFound>> (int id, Person person, IPersonRepository personRepository) =>
+{
+    if (id != person.IDPerson)
+        return TypedResults.BadRequest("El id de la URL no coincide con el id enviado");
+
+    var exists = await personRepository.ExistsById(id);
+
+    if (!exists)
+    {
+        return TypedResults.NotFound();
+    }
+
+    await personRepository.Update(person);
+    return TypedResults.NoContent();
+});
 
 app.Run();
 

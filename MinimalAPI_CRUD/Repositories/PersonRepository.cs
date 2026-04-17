@@ -16,9 +16,9 @@ namespace MinimalAPI_CRUD.Repositories
 
         public async Task<IEnumerable<Person>> GetAll()
         {
-            using (var conexion = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(connectionString))
             {
-                var persons = await conexion.QueryAsync<Person>("SP_GetAllPersons", 
+                var persons = await connection.QueryAsync<Person>("SP_GetAllPersons", 
                     commandType: CommandType.StoredProcedure);
                 return persons;
             }
@@ -26,9 +26,9 @@ namespace MinimalAPI_CRUD.Repositories
 
         public async Task<Person?> GetById(int IDPerson)
         {
-            using (var conexion = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(connectionString))
             {
-                var person = await conexion
+                var person = await connection
                     .QueryFirstOrDefaultAsync<Person>("SP_GetPersonById",
                     new {IDPerson}, commandType: CommandType.StoredProcedure);
 
@@ -38,9 +38,9 @@ namespace MinimalAPI_CRUD.Repositories
 
         public async Task<int> Create(Person person)
         {
-            using (var conexion = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(connectionString))
             {
-                var id = await conexion.QuerySingleAsync<int>("SP_InsertPerson",
+                var id = await connection.QuerySingleAsync<int>("SP_InsertPerson",
                     new {person.Name, person.Last_name, person.CURP},
                     commandType: CommandType.StoredProcedure);
 
@@ -50,12 +50,25 @@ namespace MinimalAPI_CRUD.Repositories
         }
 
 
+        public async Task Update(Person person)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                await connection.ExecuteAsync("SP_UpdatePerson",
+                    new { person.IDPerson, person.Name },
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
 
+        public async Task<bool> ExistsById(int IDPerson)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var exists = await connection.QuerySingleAsync<bool>("SP_ExistsById",
+                    new { IDPerson }, commandType: CommandType.StoredProcedure);
 
-
-
-
-
-
+                return exists;
+            }
+        }
     }
 }

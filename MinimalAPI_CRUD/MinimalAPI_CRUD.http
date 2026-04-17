@@ -9,7 +9,7 @@ POST {{MinimalAPI_CRUD_HostAddress}}/persons/
 Content-Type: application/json
 
 {
-    "Name": "Fernando",
+    "Name": "Frenando",
     "Last_name": "Flores",
     "CURP" : "FOS12HCLLNSSA2"
 }
@@ -18,3 +18,15 @@ Content-Type: application/json
 
 GET {{MinimalAPI_CRUD_HostAddress}}/persons/2
 Accept: application/json
+
+###
+
+PUT {{MinimalAPI_CRUD_HostAddress}}/persons/2
+Content-Type: application/json
+
+{
+    "IDPerson": 2,
+    "Name": "Fernando",
+    "Last_name": "Flores",
+    "CURP" : "FOS12HCLLNSSA2"
+}
