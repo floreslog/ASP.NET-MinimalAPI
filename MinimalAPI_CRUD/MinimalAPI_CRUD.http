@@ -21,11 +21,11 @@ Accept: application/json
 
 ###
 
-PUT {{MinimalAPI_CRUD_HostAddress}}/persons/2
+PUT {{MinimalAPI_CRUD_HostAddress}}/persons/3
 Content-Type: application/json
 
 {
-    "IDPerson": 2,
+    "IDPerson": 3,
     "Name": "Fernando",
     "Last_name": "Flores",
     "CURP" : "FOS12HCLLNSSA2"

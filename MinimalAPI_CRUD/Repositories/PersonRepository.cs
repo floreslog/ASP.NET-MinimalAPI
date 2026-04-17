@@ -38,14 +38,22 @@ namespace MinimalAPI_CRUD.Repositories
 
         public async Task<int> Create(Person person)
         {
-            using (var connection = new SqlConnection(connectionString))
+            try
             {
-                var id = await connection.QuerySingleAsync<int>("SP_InsertPerson",
-                    new {person.Name, person.Last_name, person.CURP},
-                    commandType: CommandType.StoredProcedure);
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    var id = await connection.QuerySingleAsync<int>("SP_InsertPerson",
+                        new { person.Name, person.Last_name, person.CURP },
+                        commandType: CommandType.StoredProcedure);
 
-                person.IDPerson = id;
-                return id;
+                    person.IDPerson = id;
+                    return id;
+                }
+            }
+            catch (SqlException ex) when (ex.Number == 2627 || ex.Number == 2601)
+            {
+                //curp duplicado
+                throw new Exception("CURP already exists");
             }
         }
 
