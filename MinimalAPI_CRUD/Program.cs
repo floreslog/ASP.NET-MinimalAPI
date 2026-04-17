@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using MinimalAPI_CRUD.Entities;
 using MinimalAPI_CRUD.Repositories;
 var builder = WebApplication.CreateBuilder(args);
@@ -20,8 +21,13 @@ app.MapGet("/persons", async (IPersonRepository personRepository) =>
     return persons;
 });
 
-app.MapGet("/persons/{id:int}", async (int id, IPersonRepository personRepository) => { 
+app.MapGet("/persons/{id:int}", async Task<Results<NotFound, Ok<Person>>> (int id, IPersonRepository personRepository) => {
+    var person = await personRepository.GetById(id);
 
+    if (person == null)
+        return TypedResults.NotFound();
+
+    return TypedResults.Ok(person);
 });
 
 

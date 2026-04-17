@@ -15,3 +15,6 @@ Content-Type: application/json
 }
 
 ###
+
+GET {{MinimalAPI_CRUD_HostAddress}}/persons/2
+Accept: application/json

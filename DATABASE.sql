@@ -41,3 +41,18 @@ BEGIN
 END
 
 
+
+CREATE PROCEDURE SP_GetPersonById
+    @IDPerson INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        IDPerson,
+        Name,
+        Last_name,
+        CURP
+    FROM Persons
+    WHERE IDPerson = @IDPerson;
+END

@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using MinimalAPI_CRUD.Entities;
+using System;
 using System.Data;
 
 namespace MinimalAPI_CRUD.Repositories
@@ -20,6 +21,18 @@ namespace MinimalAPI_CRUD.Repositories
                 var persons = await conexion.QueryAsync<Person>("SP_GetAllPersons", 
                     commandType: CommandType.StoredProcedure);
                 return persons;
+            }
+        }
+
+        public async Task<Person?> GetById(int IDPerson)
+        {
+            using (var conexion = new SqlConnection(connectionString))
+            {
+                var person = await conexion
+                    .QueryFirstOrDefaultAsync<Person>("SP_GetPersonById",
+                    new {IDPerson}, commandType: CommandType.StoredProcedure);
+
+                return person;
             }
         }
 

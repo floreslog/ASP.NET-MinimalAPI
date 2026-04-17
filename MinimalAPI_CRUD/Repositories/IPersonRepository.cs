@@ -6,5 +6,6 @@ namespace MinimalAPI_CRUD.Repositories
     {
         Task<IEnumerable<Person>> GetAll();
         Task<int> Create(Person person);
+        Task<Person?> GetById(int id);
     }
 }
