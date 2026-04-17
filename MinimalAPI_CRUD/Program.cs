@@ -52,6 +52,20 @@ app.MapPut("/persons/{id:int}", async Task<Results<BadRequest<string>, NoContent
     return TypedResults.NoContent();
 });
 
+app.MapDelete("/persons/{id:int}", async
+    Task<Results<NoContent, NotFound>>
+    (int id, IPersonRepository personRepository) =>
+{
+    var exists = await personRepository.ExistsById(id);
+
+    if (!exists)
+        return TypedResults.NotFound();
+
+    await personRepository.Delete(id);
+
+    return TypedResults.NoContent();
+});
+
 app.Run();
 
 

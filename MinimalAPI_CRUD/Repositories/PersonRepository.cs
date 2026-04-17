@@ -70,5 +70,14 @@ namespace MinimalAPI_CRUD.Repositories
                 return exists;
             }
         }
+
+        public async Task Delete(int IDPerson)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                await connection.ExecuteAsync("SP_DeletePerson",
+                    new { IDPerson }, commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }

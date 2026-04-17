@@ -9,5 +9,6 @@ namespace MinimalAPI_CRUD.Repositories
         Task<Person?> GetById(int id);
         Task Update(Person person);
         Task<bool> ExistsById(int IDPerson);
+        Task Delete(int IDPerson);
     }
 }
