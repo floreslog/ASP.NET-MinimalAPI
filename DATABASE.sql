@@ -1,6 +1,16 @@
+----------------------------[DB CREATION]----------------------------------------
+
 CREATE DATABASE MinimalAPI_DB
 
 USE MinimalAPI_DB
+
+--------------------------------------------------------------------
+
+
+
+
+
+--------------------------[ TABLE ]------------------------------------------
 
 CREATE TABLE Persons (
     IDPerson INT IDENTITY(1,1) PRIMARY KEY,
@@ -14,7 +24,13 @@ ALTER TABLE Persons
 ADD CONSTRAINT UQ_Persons_CURP UNIQUE (CURP)
 
 
+--------------------------------------------------------------------
 
+
+
+
+
+---------------------------[ STORED PROCEDURES] -----------------------------------------
 
 CREATE PROCEDURE SP_GetAllPersons
 AS
@@ -24,6 +40,8 @@ BEGIN
     SELECT * 
     FROM Persons;
 END
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 
 
 CREATE PROCEDURE SP_InsertPerson
@@ -40,7 +58,7 @@ BEGIN
     SELECT SCOPE_IDENTITY();
 END
 
-
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 
 CREATE PROCEDURE SP_GetPersonById
     @IDPerson INT
@@ -57,6 +75,7 @@ BEGIN
     WHERE IDPerson = @IDPerson;
 END
 
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 
 CREATE PROCEDURE SP_UpdatePerson
     @IDPerson INT,
@@ -75,6 +94,7 @@ BEGIN
     WHERE IDPerson = @IDPerson;
 END
 
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 
 CREATE PROCEDURE SP_ExistsById
     @IDPerson INT
@@ -88,3 +108,16 @@ BEGIN
         SELECT 0
 END
 
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+
+CREATE PROCEDURE SP_DeletePerson
+    @IDPerson INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM Persons
+    WHERE IDPerson = @IDPerson;
+END
+
+--------------------------------------------------------------------
