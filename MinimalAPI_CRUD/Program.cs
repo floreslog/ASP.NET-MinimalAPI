@@ -1,6 +1,5 @@
+using MinimalAPI_CRUD.Entities;
 using MinimalAPI_CRUD.Repositories;
-using System.Reflection.Metadata.Ecma335;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,9 +20,17 @@ app.MapGet("/persons", async (IPersonRepository personRepository) =>
     return persons;
 });
 
+app.MapGet("/persons/{id:int}", async (int id, IPersonRepository personRepository) => { 
+
+});
 
 
 
+app.MapPost("/persons", async (Person person, IPersonRepository personRepository) =>
+{
+    await personRepository.Create(person);
+    return TypedResults.Created($"/persons/{person.IDPerson}", person);
+});
 
 
 app.Run();

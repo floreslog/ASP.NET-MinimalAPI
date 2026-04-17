@@ -4,3 +4,14 @@ GET {{MinimalAPI_CRUD_HostAddress}}/persons/
 Accept: application/json
 
 ###
+
+POST {{MinimalAPI_CRUD_HostAddress}}/persons/
+Content-Type: application/json
+
+{
+    "Name": "Fernando",
+    "Last_name": "Flores",
+    "CURP" : "FOS12HCLLNSSA2"
+}
+
+###

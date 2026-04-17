@@ -13,6 +13,9 @@ CREATE TABLE Persons (
 ALTER TABLE Persons
 ADD CONSTRAINT UQ_Persons_CURP UNIQUE (CURP)
 
+
+
+
 CREATE PROCEDURE SP_GetAllPersons
 AS
 BEGIN
@@ -21,4 +24,20 @@ BEGIN
     SELECT * 
     FROM Persons;
 END
+
+
+CREATE PROCEDURE SP_InsertPerson
+    @Name NVARCHAR(100),
+    @Last_name NVARCHAR(100),
+    @CURP NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO Persons (Name, Last_name, CURP)
+    VALUES (@Name, @Last_name, @CURP);
+
+    SELECT SCOPE_IDENTITY();
+END
+
 

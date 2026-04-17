@@ -22,5 +22,27 @@ namespace MinimalAPI_CRUD.Repositories
                 return persons;
             }
         }
+
+        public async Task<int> Create(Person person)
+        {
+            using (var conexion = new SqlConnection(connectionString))
+            {
+                var id = await conexion.QuerySingleAsync<int>("SP_InsertPerson",
+                    new {person.Name, person.Last_name, person.CURP},
+                    commandType: CommandType.StoredProcedure);
+
+                person.IDPerson = id;
+                return id;
+            }
+        }
+
+
+
+
+
+
+
+
+
     }
 }
