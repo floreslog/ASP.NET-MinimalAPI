@@ -1,3 +1,7 @@
+![.NET](https://img.shields.io/badge/.NET-8.0-purple)
+![SQL Server](https://img.shields.io/badge/SQL_Server-Database-red)
+![Dapper](https://img.shields.io/badge/Dapper-MicroORM-blue)
+![Minimal API](https://img.shields.io/badge/ASP.NET-Minimal_API-black)
 # persons-minimal-api
 
 Simple CRUD API built with ASP.NET Core Minimal API and SQL Server, using Dapper and stored procedures for data access.
